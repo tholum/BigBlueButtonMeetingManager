@@ -1,0 +1,47 @@
+@primaryColor: #0A91F9;
+@primaryColor5: #77C2FC;
+@primaryColorDark: #035DA2;
+@secondaryColorA: #FFBF00;
+@secondaryColorA3: #A67C00;
+@secondaryColorA5: #FFDC73;
+
+@secondaryColorB: #FF4900;
+@secondaryColorB2: #BF5930;
+@secondaryColorB3: #A62F00;
+@secondaryColorB4: #FF7640;
+@secondaryColorB5: #FF9B73;
+body {
+   font-family: "Trebuchet MS", Helvetica, sans-serif;
+   color: @primaryColorDark;//@secondaryColorB3;
+   margin: 0;
+   padding: 0;
+}
+.contentArea {
+   width: 100% ;
+   background: #ffffff;
+   min-height: 90%;
+}
+.menuHeader{
+   width: 100%;
+   background: @primaryColor5;
+}
+.menuItem {
+   display: inline-block;
+   padding: .6em;
+   margin: 0;
+}
+.menuItem:hover {
+   background: @primaryColorDark;
+   color: @primaryColor;
+}
+.menuItem.active {
+      background: @secondaryColorA5;
+   color: @secondaryColorA3;
+}
+.menuItem.active:hover {
+      color: @secondaryColorA5;
+   background: @secondaryColorA3;
+}
+.menuRight {
+   float: right;
+}

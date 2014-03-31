@@ -1,0 +1,44 @@
+<html>
+   <head>
+      <style>
+         .meetingId{
+            display: inline-block;
+         }
+      </style>
+      <link href="css/global.css" type="text/css"  rel="stylesheet" >
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+      <script type="text/javascript" >
+         var bbb = {
+            getMeetings: function(){
+               $.getJSON("getMeetings", function(data){
+                  $.each( data.response.meetings , function(key,val){
+                     line=$($("#meetingLine").html());
+                     line.children('.meetingId').html( val.meetingID );
+                     $('#meetingList').append(line);                     
+                  });
+               });
+            }
+         }
+      </script>
+      <script type="text/javascript">
+         $(function(){
+            bbb.getMeetings();
+            $('.menuItem').click(function(){ $('.menuItem.active').removeClass('active'); $(this).addClass('active'); }); 
+          });
+      </script>
+   </head>
+   <body>
+      <div class="menuHeader">
+         <div class="menuItem active" data-page_id="home" >Home</div>
+         <div class="menuItem" data-page_id="activeMeetings" >Active Meetings</div>
+         <div class="menuItem" data-page_id="scheduledMeetings" >Scheduled Meetings</div>
+         <div class="menuItem menuRight" data-page_id="login" >Login</div>
+      </div>
+      <div class="contentArea" >
+         <div id="meetingList" ></div>
+            <script type="text/template" id="meetingLine" >
+               <div><div class="meetingId"></div></div>
+            </script>
+         </div>
+   </body>
+</html>
