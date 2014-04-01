@@ -6,6 +6,44 @@ var config = require('./config.js');
 var crypto = require('crypto');
 var shasum = crypto.createHash('sha1');
 var sites = {};
+var passport = require('passport') , 
+FacebookStrategy = require('passport-facebook').Strategy;
+passport.use(new FacebookStrategy({
+    clientID: config.auth.facebook.appId,
+    clientSecret: config.auth.facebook.appSecret,
+    callbackURL: "http://bigblue.slimcrm.com/app/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+   console.log( profile );
+   done( null , profile );
+/*
+    User.findOrCreate(..., function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+*/
+  } 
+));
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+
+app.use(passport.initialize());
+app.get('/app/auth/facebook', passport.authenticate('facebook'));
+
+// Facebook will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+app.get('/app/auth/facebook/callback', 
+  passport.authenticate('facebook', { successRedirect: '/app/',
+                                      failureRedirect: '/app/' }));
+
 for( site in config.sites ){
    bbb.salt = config.sites[site].salt;
    bbb.url = config.sites[site].url; 
