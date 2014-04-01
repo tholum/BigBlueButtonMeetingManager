@@ -37,7 +37,7 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.get('/app/testMysql', function( req , res){
-    database.query("SELECT * FROM tbl_users" , function(err, rows, fields){
+    database.query("SELECT * FROM tbl_user" , function(err, rows, fields){
         
         res.send({ err: err , rows: rows, fields: fields });
     })
