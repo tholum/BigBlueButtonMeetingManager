@@ -8,6 +8,8 @@ var shasum = crypto.createHash('sha1');
 var sites = {};
 var database = require('./class/database.js');
 database.init(config);
+var users = require('./class/users.js');
+users.init(database);
 var passport = require('passport') , 
 FacebookStrategy = require('passport-facebook').Strategy;
 passport.use(new FacebookStrategy({
@@ -35,7 +37,7 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.get('/app/testMysql', function( req , res){
-    database.query("show tables" , function(err, rows, fields){
+    database.query("SELECT * FROM tbl_users" , function(err, rows, fields){
         res.send(rows);
     })
 });

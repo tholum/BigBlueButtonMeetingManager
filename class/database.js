@@ -12,6 +12,9 @@ module.exports = {
     } , 
     query: function( query , callback ){
         this.connection.query( query , callback );
+    },
+    search: function( table , searchObject , callback ){
+        var query = "";
     }
 }
 
