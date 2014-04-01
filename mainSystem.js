@@ -6,6 +6,8 @@ var config = require('./config.js');
 var crypto = require('crypto');
 var shasum = crypto.createHash('sha1');
 var sites = {};
+var database = require('./class/database.js');
+database.init(config);
 var passport = require('passport') , 
 FacebookStrategy = require('passport-facebook').Strategy;
 passport.use(new FacebookStrategy({
@@ -32,6 +34,11 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+app.get('/app/testMysql', function( req , res){
+    database.query("show tables" , function(err, rows, fields){
+        res.send(rows);
+    })
+});
 
 app.use(passport.initialize());
 app.get('/app/auth/facebook', passport.authenticate('facebook'));

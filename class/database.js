@@ -9,6 +9,9 @@ module.exports = {
             database : config.database.name
         });
 
+    } , 
+    query: function( query , callback ){
+        this.connection.query( query , callback );
     }
 }
 
