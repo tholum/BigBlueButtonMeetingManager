@@ -42,8 +42,9 @@ app.get('/app/testMysql', function( req , res){
         res.send({ err: err , rows: rows, fields: fields });
     })
 });
-
-app.use(passport.initialize());
+ app.use(express.session({ secret: 'adfDk3sFjepFs' }));
+  app.use(passport.initialize());
+  app.use(passport.session());
 app.get('/app/auth/facebook', passport.authenticate('facebook'));
 
 // Facebook will redirect the user to this URL after approval.  Finish the
