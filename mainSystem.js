@@ -24,7 +24,8 @@ passport.use(new FacebookStrategy({
     callbackURL: "http://bigblue.slimcrm.com/app/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-      database.query("SELECT * FROM module_auth WHERE module_name = '" + module_name + "' AND module_id = '" + module_id + "'",
+      console.log( profile );
+      database.query("SELECT * FROM module_auth WHERE module_name = '' AND module_id = '" + profile.id + "'",
       function(err, rows, fields){
           console.log( rows );
           done( null , profile );
