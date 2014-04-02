@@ -6,10 +6,16 @@ var config = require('./config.js');
 var crypto = require('crypto');
 var shasum = crypto.createHash('sha1');
 var sites = {};
-var database = require('./class/database.js');
-database.init(config);
-var users = require('./class/users.js');
-users.init(database);
+var mysql = require('mysql');
+var database = mysql.createConnection({
+            host     : config.database.host,
+            user     : config.database.username,
+            password : config.database.password,
+            database : config.database.name
+        });
+database.connect();
+//var users = require('./class/users.js');
+//users.init(database);
 var passport = require('passport') , 
 FacebookStrategy = require('passport-facebook').Strategy;
 passport.use(new FacebookStrategy({
@@ -18,14 +24,11 @@ passport.use(new FacebookStrategy({
     callbackURL: "http://bigblue.slimcrm.com/app/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-   console.log( profile );
-   done( null , profile );
-/*
-    User.findOrCreate(..., function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
-*/
+      database.query("SELECT * FROM module_auth WHERE module_name = '" + module_name + "' AND module_id = '" + module_id + "'",
+      function(err, rows, fields){
+          console.log( rows );
+          done( null , profile );
+      });
   } 
 ));
 

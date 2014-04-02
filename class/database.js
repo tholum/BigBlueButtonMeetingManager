@@ -10,8 +10,8 @@ module.exports = {
         });
 
     } , 
-    query: function( query , callback ){
-        this.connection.query( query , callback );
+    query: function( arg1 , arg2 , arg3 ){
+        this.connection.query( arg1 , arg2 , arg3 );
     },
     search: function( table , searchObject , callback ){
         var query = "";
