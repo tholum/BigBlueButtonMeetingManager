@@ -27,7 +27,8 @@ passport.use(new FacebookStrategy({
       database.query("SELECT * FROM module_auth WHERE module_name = '' AND module_id = '" + profile.id + "'",
       function(err, rows, fields){
           if( rows.length == 0 ){
-                database.query("INSERT INTO tbl_user SET ?" , { first_name: profile.first_name , last_name: profile.last_name , user_name: 'facebook' + profile.id  }, function(err2, rows2){
+              
+                database.query("INSERT INTO tbl_user SET ?" , { first_name: profile.name.givenName , last_name: profile.name.familyName , user_name: 'facebook' + profile.id  }, function(err2, rows2){
                     console.log( [ rows2 , err2] );
                     
                     done( null , profile );
