@@ -36,10 +36,16 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
-app.use(express.session({ secret: 'adfDk3sFjepFs' }));
-app.use(passport.initialize());
-app.use(passport.session());
-  
+
+app.configure(function() {
+  app.use(express.static('public'));
+  app.use(express.cookieParser());
+  app.use(express.bodyParser());
+  app.use(express.session({ secret: 'Sdfja9Er0343243' }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(app.router);
+});
   
 app.get('/app/testMysql', function( req , res){
     database.query("SELECT * FROM tbl_user WHERE user_id = 1" , function(err, rows, fields){
