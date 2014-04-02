@@ -28,6 +28,7 @@ passport.use(new FacebookStrategy({
 */
   } 
 ));
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -35,16 +36,18 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
-
+app.use(express.session({ secret: 'adfDk3sFjepFs' }));
+app.use(passport.initialize());
+app.use(passport.session());
+  
+  
 app.get('/app/testMysql', function( req , res){
     database.query("SELECT * FROM tbl_user WHERE user_id = 1" , function(err, rows, fields){
         
         res.send({ err: err , rows: rows, fields: fields });
     })
 });
- app.use(express.session({ secret: 'adfDk3sFjepFs' }));
-  app.use(passport.initialize());
-  app.use(passport.session());
+ 
 app.get('/app/auth/facebook', passport.authenticate('facebook'));
 
 // Facebook will redirect the user to this URL after approval.  Finish the
