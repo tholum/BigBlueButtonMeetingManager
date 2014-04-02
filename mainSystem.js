@@ -26,8 +26,12 @@ passport.use(new FacebookStrategy({
   function(accessToken, refreshToken, profile, done) {
       database.query("SELECT * FROM module_auth WHERE module_name = '' AND module_id = '" + profile.id + "'",
       function(err, rows, fields){
-          console.log( rows );
-          done( null , profile );
+          if( rows.length == 0 ){
+                database.query("INSERT INTO tbl_user SET ?" , { first_name: profile.first_name , last_name: profile.last_name , user_name: 'facebook' + profile.id  }, function(err2, rows2){
+                    console.log( rows2 );
+                    done( null , profile );
+                });
+            }
       });
   } 
 ));
