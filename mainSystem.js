@@ -31,23 +31,7 @@ app.configure(function() {
   app.use(passport.session());
   app.use(app.router);
 });
-  
-app.get('/app/testMysql', function( req , res){
-    database.query("SELECT * FROM tbl_user WHERE user_id = 1" , function(err, rows, fields){
-        
-        res.send({ err: err , rows: rows, fields: fields });
-    })
-});
-app.get('/app/userInfo' , function( req , res ){ res.send(req.user);}); 
-app.get('/app/auth/facebook', passport.authenticate('facebook'));
 
-// Facebook will redirect the user to this URL after approval.  Finish the
-// authentication process by attempting to obtain an access token.  If
-// access was granted, the user will be logged in.  Otherwise,
-// authentication has failed.
-app.get('/app/auth/facebook/callback', 
-  passport.authenticate('facebook', { successRedirect: '/app/',
-                                      failureRedirect: '/app/' }));
 
 for( site in config.sites ){
    bbb.salt = config.sites[site].salt;
