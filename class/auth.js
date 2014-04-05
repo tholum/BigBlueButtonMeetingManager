@@ -33,7 +33,7 @@ module.exports = {
           done(null, user);
         });
         this.passport = passport;
-        return this.passport;
+        return passport;
     },
     getPassport: function(){ return this.passport; }
     
