@@ -1,7 +1,13 @@
 module.exports = {
     expressRoutes: function( app , config , passport , database ){
         app.get('/app/logout', function(req, res){  req.logout(); res.redirect('/app/');});
-        app.get('/app/userInfo' , function( req , res ){ res.send(req.user);}); 
+        app.get('/app/userInfo' , function( req , res ){ 
+            var send = { loggedIn : false , userInfo : req.user }
+            if( req.user.hasOwnProperty('userId') ){
+                send.loggedIn = true;
+            }
+            res.send(send);
+        }); 
         app.get('/app/auth/facebook', passport.authenticate('facebook'));
         app.get('/app/auth/facebook/callback', 
         passport.authenticate('facebook', { successRedirect: '/app/',
