@@ -3,8 +3,10 @@ module.exports = {
         app.get('/app/logout', function(req, res){  req.logout(); res.redirect('/app/');});
         app.get('/app/userInfo' , function( req , res ){ 
             var send = { loggedIn : false , userInfo : req.user }
-            if( req.user.hasOwnProperty('userId') ){
-                send.loggedIn = true;
+            if( req.hasOwnProperty('user') ){
+                if( req.user.hasOwnProperty('userId') ){
+                    send.loggedIn = true;
+                }
             }
             res.send(send);
         }); 
