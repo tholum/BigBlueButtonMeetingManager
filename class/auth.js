@@ -29,9 +29,14 @@ module.exports = {
           } 
         ));
 
-        passport.serializeUser(function(user, done) {
-          done(null, user);
-        });
+        app.get('/app/userInfo' , function( req , res ){ res.send(req.user);}); 
+        app.get('/app/auth/facebook', passport.authenticate('facebook'));
+        app.get('/app/auth/facebook/callback', 
+        passport.authenticate('facebook', { successRedirect: '/app/',
+                                            failureRedirect: '/app/' }));
+                passport.serializeUser(function(user, done) {
+                done(null, user);
+              });
 
         passport.deserializeUser(function(user, done) {
           done(null, user);
