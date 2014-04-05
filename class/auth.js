@@ -17,6 +17,11 @@ module.exports = {
                 
         
     },
+    getUserInfo: function( user_id , done ){
+        database.query("SELECT * FROM tbl_user WHERE user_id = '" + user_id + "'" , function(err, rows){
+            done( null , rows[0]);
+        });
+    },
     init: function( app , express , database , config  ){
         var passport = require('passport');
         var FacebookStrategy = require('passport-facebook').Strategy;
@@ -36,12 +41,12 @@ module.exports = {
                     var sql2 = "INSERT INTO module_auth ( `module_name` , `module_id` , `user_id` ) VALUES ( 'facebook' , '" + profile.id + "' , '" + rows2.insertId+ "')";
                         database.query( sql2 , function( err3 , rows3 ){
                               console.log( rows2.insertId );
-                              done( null , { user_id : rows2.insertId } );
+                              this.getUserInfo( rows2.insertId , done );
                         });
                 });
             } else {
                console.log( "Found:" + rows[0].user_id )
-               done( null , { user_id : rows[0].user_id } );
+               this.getUserInfo(  rows[0].user_id , done );
             }
       });
           } 
