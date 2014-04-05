@@ -1,7 +1,6 @@
 module.exports = {
     passport: null,
-    init: function( app , database ){
-        var passport = require('passport');
+    init: function( app , database , passport ){
         var FacebookStrategy = require('passport-facebook').Strategy;
         passport.use(new FacebookStrategy({
             clientID: config.auth.facebook.appId,
