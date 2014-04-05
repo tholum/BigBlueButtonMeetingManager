@@ -15,7 +15,8 @@ var database = mysql.createConnection({
         });
 database.connect();
 var auth = require('./class/users.js');
-var passport = auth.init(app , database);
+var passport = require('passport');
+auth.init(app , database , passport );
 //var users = require('./class/users.js');
 //users.init(database);
  
