@@ -22,15 +22,7 @@ FacebookStrategy = auth.FacebookStrategy;
 //var users = require('./class/users.js');
 //users.init(database);
 
-app.configure(function() {
-  app.use(express.static('public'));
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.session({ secret: 'Sdfja9Er0343243' }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-});
+
 
 
 for( site in config.sites ){
