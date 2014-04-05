@@ -10,17 +10,22 @@ module.exports = {
           function(accessToken, refreshToken, profile, done) {
               database.query("SELECT * FROM module_auth WHERE module_name = '' AND module_id = '" + profile.id + "'",
               function(err, rows, fields){
-                  if( rows.length == 0 ){
-                       console.log( profile.name.givenName );
-                       var sql = "INSERT INTO tbl_user ( `first_name` , `last_name` , `user_name` ) VALUES( '" + profile.name.givenName + "' , ''" + profile.name.familyName + "' , '' )";
-                        done( null , profile );
-                       /*database.query("INSERT INTO tbl_user SET ?" , { first_name: profile.name.givenName , last_name: profile.name.familyName , user_name: 'facebook' + profile.id  }, function(err2, rows2){
-                            console.log( [ rows2 , err2] );
-
-                            done( null , profile );
-                        });*/
-                    }
-              });
+          if( rows.length == 0 ){
+               console.log( profile.name.givenName );
+               var sql = "INSERT INTO tbl_user ( `first_name` , `last_name` ) VALUES( '" + profile.name.givenName + "' , '" + profile.name.familyName + "' )";
+               database.query( sql , function(err2, rows2){
+                    console.log( [ rows2 , err2] );
+                    var sql2 = "INSERT INTO module_auth ( `module_name` , `module_id` , `user_id` ) VALUES ( 'facebook' , '" + profile.id + "' , '" + rows2.insertId+ "')";
+                        database.query( sql2 , function( err3 , rows3 ){
+                              console.log( rows2.insertId );
+                              done( null , { user_id : rows2.insertId } );
+                        });
+                });
+            } else {
+               console.log( "Found:" + rows[0].user_id )
+               done( null , { user_id : rows[0].user_id } );
+            }
+      });
           } 
         ));
 
