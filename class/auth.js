@@ -18,11 +18,13 @@ module.exports = {
         
     },
     getUserInfo: function( user_id , done ){
+        database = this.database;
         database.query("SELECT * FROM tbl_user WHERE user_id = '" + user_id + "'" , function(err, rows){
             done( null , rows[0]);
         });
     },
     init: function( app , express , database , config  ){
+        this.database = database;
         var authObject = this;
         var passport = require('passport');
         var FacebookStrategy = require('passport-facebook').Strategy;
