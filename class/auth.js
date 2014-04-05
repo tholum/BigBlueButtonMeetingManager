@@ -17,7 +17,7 @@ module.exports = {
                 
         
     },
-    init: function( app , database , config ){
+    init: function( app , express , database , config  ){
         var passport = require('passport');
         var FacebookStrategy = require('passport-facebook').Strategy;
         passport.use(new FacebookStrategy({
