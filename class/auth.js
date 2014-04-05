@@ -23,6 +23,7 @@ module.exports = {
         });
     },
     init: function( app , express , database , config  ){
+        var authObject = this;
         var passport = require('passport');
         var FacebookStrategy = require('passport-facebook').Strategy;
         passport.use(new FacebookStrategy({
@@ -41,12 +42,12 @@ module.exports = {
                     var sql2 = "INSERT INTO module_auth ( `module_name` , `module_id` , `user_id` ) VALUES ( 'facebook' , '" + profile.id + "' , '" + rows2.insertId+ "')";
                         database.query( sql2 , function( err3 , rows3 ){
                               console.log( rows2.insertId );
-                              this.getUserInfo( rows2.insertId , done );
+                              authObject.getUserInfo( rows2.insertId , done );
                         });
                 });
             } else {
                console.log( "Found:" + rows[0].user_id )
-               this.getUserInfo(  rows[0].user_id , done );
+               authObject.getUserInfo(  rows[0].user_id , done );
             }
       });
           } 
