@@ -1,4 +1,14 @@
 module.exports = {
+    expressRoutes: function( app , config , passport , database ){
+        app.get('/app/logout', function(req, res){  req.logout(); res.redirect('/app/');});
+        app.get('/app/userInfo' , function( req , res ){ res.send(req.user);}); 
+        app.get('/app/auth/facebook', passport.authenticate('facebook'));
+        app.get('/app/auth/facebook/callback', 
+        passport.authenticate('facebook', { successRedirect: '/app/',
+                                            failureRedirect: '/app/' }));
+                
+        
+    },
     init: function( app , database , config ){
         var passport = require('passport');
         var FacebookStrategy = require('passport-facebook').Strategy;
@@ -28,19 +38,14 @@ module.exports = {
       });
           } 
         ));
-        app.get('/app/logout', function(req, res){  req.logout(); res.redirect('/app/');});
-        app.get('/app/userInfo' , function( req , res ){ res.send(req.user);}); 
-        app.get('/app/auth/facebook', passport.authenticate('facebook'));
-        app.get('/app/auth/facebook/callback', 
-        passport.authenticate('facebook', { successRedirect: '/app/',
-                                            failureRedirect: '/app/' }));
-                passport.serializeUser(function(user, done) {
-                done(null, user);
-              });
+        this.expressRoutes( app , config , passport , database );
 
         passport.deserializeUser(function(user, done) {
           done(null, user);
         });
+        passport.serializeUser(function(user, done) {
+                done(null, user);
+              });
         console.log('Init');
         this.passport = passport;
         this.FacebookStrategy = FacebookStrategy;
