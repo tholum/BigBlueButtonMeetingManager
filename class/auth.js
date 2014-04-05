@@ -1,7 +1,6 @@
 module.exports = {
-    passport: null,
-    init: function( app , database , passport ){
-        var FacebookStrategy = require('passport-facebook').Strategy;
+    init: function( app , database , passport , FacebookStrategy ){
+        
         passport.use(new FacebookStrategy({
             clientID: config.auth.facebook.appId,
             clientSecret: config.auth.facebook.appSecret,
@@ -31,10 +30,8 @@ module.exports = {
         passport.deserializeUser(function(user, done) {
           done(null, user);
         });
-        this.passport = passport;
-        return passport;
+        console.log('Init');
     },
-    getPassport: function(){ return this.passport; }
     
 }
 
