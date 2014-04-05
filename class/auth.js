@@ -32,7 +32,8 @@ module.exports = {
           done(null, user);
         });
         console.log('Init');
-        return [passport , FacebookStrategy];
+        this.passport = passport;
+        this.FacebookStrategy = FacebookStrategy;
     },
     
 }
