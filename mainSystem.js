@@ -15,13 +15,10 @@ var database = mysql.createConnection({
         });
 database.connect();
 var auth = require('./class/auth.js');
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
-auth.init(app , database , passport , FacebookStrategy );
+
+var passport = auth.init(app , database , config );
 //var users = require('./class/users.js');
 //users.init(database);
-
-
 
 app.configure(function() {
   app.use(express.static('public'));
