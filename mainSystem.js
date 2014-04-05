@@ -16,7 +16,7 @@ var database = mysql.createConnection({
 database.connect();
 var auth = require('./class/auth.js');
 var passport , FacebookStrategy;
-auth.init(app , database , config );
+auth.init(app , express, database , config );
 passport = auth.passport;
 FacebookStrategy = auth.FacebookStrategy;
 //var users = require('./class/users.js');
