@@ -28,7 +28,7 @@ module.exports = {
       });
           } 
         ));
-
+        app.get('/app/logout', function(req, res){  req.logout(); res.redirect('/app/');});
         app.get('/app/userInfo' , function( req , res ){ res.send(req.user);}); 
         app.get('/app/auth/facebook', passport.authenticate('facebook'));
         app.get('/app/auth/facebook/callback', 
