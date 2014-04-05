@@ -12,7 +12,7 @@ module.exports = {
               function(err, rows, fields){
                   if( rows.length == 0 ){
                        console.log( profile.name.givenName );
-                       var sql = "INSERT INTO tbl_user ( `first_name` , `last_name` , `user_name` ) VALUES( '" + provile.name.givenName + "' , ''" + provile.name.familyName + "' , '' )";
+                       var sql = "INSERT INTO tbl_user ( `first_name` , `last_name` , `user_name` ) VALUES( '" + profile.name.givenName + "' , ''" + profile.name.familyName + "' , '' )";
                         done( null , profile );
                        /*database.query("INSERT INTO tbl_user SET ?" , { first_name: profile.name.givenName , last_name: profile.name.familyName , user_name: 'facebook' + profile.id  }, function(err2, rows2){
                             console.log( [ rows2 , err2] );
