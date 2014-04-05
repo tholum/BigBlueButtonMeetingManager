@@ -32,7 +32,7 @@ module.exports = {
           done(null, user);
         });
         console.log('Init');
-        return passport;
+        return [passport , FacebookStrategy];
     },
     
 }
