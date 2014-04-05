@@ -18,7 +18,7 @@ module.exports = {
             callbackURL: "http://bigblue.slimcrm.com/app/auth/facebook/callback"
           },
           function(accessToken, refreshToken, profile, done) {
-              database.query("SELECT * FROM module_auth WHERE module_name = '' AND module_id = '" + profile.id + "'",
+              database.query("SELECT * FROM module_auth WHERE module_name = 'facebook' AND module_id = '" + profile.id + "'",
               function(err, rows, fields){
           if( rows.length == 0 ){
                console.log( profile.name.givenName );
