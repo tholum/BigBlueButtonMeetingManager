@@ -4,7 +4,7 @@ module.exports = {
         app.get('/app/userInfo' , function( req , res ){ 
             var send = { loggedIn : false , userInfo : req.user }
             if( req.hasOwnProperty('user') ){
-                if( req.user.hasOwnProperty('userId') ){
+                if( req.user.hasOwnProperty('user_id') ){
                     send.loggedIn = true;
                 }
             }
