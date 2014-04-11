@@ -27,7 +27,7 @@ var auth = {
         popup.css('top' , bottom + 'px');
         console.log( bottom );
         var button;
-        $.each( auth.loginMethod , function( key , val ){
+        $.each( auth.loginMethods , function( key , val ){
            button = $($('#loginButtonTemplate').html());
            button.children('a').attr('href',val.url);
            button.children('a').addClass(val.class);
