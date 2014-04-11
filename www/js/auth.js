@@ -30,8 +30,8 @@ var auth = {
         $.each( auth.logonMethods , function( key , val ){
            console.log(key);
            button = $($('#loginButtonTemplate').html());
-           button.children('a').attr('href',val.url);
-           button.children('a').addClass(val.class);
+           button.attr('href',val.url);
+           button.addClass(val.class);
            popup.append(button);
         });
         $('body').append(popup);
