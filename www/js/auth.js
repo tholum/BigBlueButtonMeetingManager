@@ -2,6 +2,9 @@ var auth = {
     loggedIn: false,
     userInfo: null,
     runOnLogin: [],
+    logonMethods: {
+        'facebook': { class : 'facebookLogin' , url :"auth/facebook" }
+        },
     init: function(){
         auth.checkUserInfo();
     } ,
@@ -23,6 +26,13 @@ var auth = {
         popup.css('right', '0');
         popup.css('top' , bottom + 'px');
         console.log( bottom );
+        var button;
+        $.each( auth.loginMethod , function( key , val ){
+           button = $($('#loginButtonTemplate').html());
+           button.children('a').attr('href',val.url);
+           button.children('a').addClass(val.class);
+           popup.append(button);
+        });
         $('body').append(popup);
     }
 }
