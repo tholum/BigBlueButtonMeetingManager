@@ -1,6 +1,7 @@
 var auth = {
     loggedIn: false,
     userInfo: null,
+    runOnLogin: [],
     init: function(){
         auth.checkUserInfo();
     } ,
@@ -10,6 +11,7 @@ var auth = {
               auth.loggedIn = true;
               auth.userInfo = data.userInfo;
               $('[data-page_id="login"]').html(auth.userInfo.first_name  + " " + auth.userInfo.last_name);
+              $.each(runOnLogin , function(key,val){ val();});
           }
       });  
     },
